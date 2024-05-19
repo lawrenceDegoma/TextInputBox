@@ -1,0 +1,3 @@
+/Users/lawrence/CLionProjects/TextInputBox/cmake-build-debug/CMakeFiles/TextInputBox.dir
+/Users/lawrence/CLionProjects/TextInputBox/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/lawrence/CLionProjects/TextInputBox/cmake-build-debug/CMakeFiles/rebuild_cache.dir
