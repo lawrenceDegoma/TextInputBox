@@ -9,6 +9,7 @@
 #include <string>
 #include "Cursor.h"
 #include "UndoManager.h"
+#include <iostream>
 
 class TextBox {
 public:
@@ -21,7 +22,6 @@ public:
 private:
     void processInput(sf::Uint32 unicode);
     void deleteCharacter();
-    void deleteCharacterBeforeCursor();
     void undo();
 
     sf::RectangleShape box;

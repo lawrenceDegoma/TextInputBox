@@ -5,7 +5,7 @@
 #include "Cursor.h"
 
 Cursor::Cursor(unsigned int size)
-        : cursor(sf::Vector2f(2.f, static_cast<float>(size))), blinkTime(sf::Time::Zero), visible(true) {
+        : cursor(sf::Vector2f(2.f, static_cast<float>(size))), blinkTime(sf::Time::Zero), visible(true), position(0) {
     cursor.setFillColor(sf::Color::Black);
 }
 
@@ -35,4 +35,8 @@ void Cursor::moveLeft() {
     if (position > 0) {
         position--;
     }
+}
+
+void Cursor::moveRight() {
+    position++;
 }

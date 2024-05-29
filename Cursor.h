@@ -17,6 +17,7 @@ public:
     void updatePosition(sf::Vector2f position);
     unsigned int getPosition() const;
     void moveLeft();
+    void moveRight();
 
 private:
     sf::RectangleShape cursor;
