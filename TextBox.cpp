@@ -1,8 +1,7 @@
 #include "TextBox.h"
 
 TextBox::TextBox(float width, float height)
-        : box(sf::Vector2f(width, height)), maxLength(100), isActive(false),
-          cursor(text.getCharacterSize()) {
+        : box(sf::Vector2f(width, height)), maxLength(100), isActive(false), cursor(text.getCharacterSize()) {
     if (!font.loadFromFile("arial.ttf")) {
         throw std::runtime_error("Failed to load font file 'arial.ttf'");
     }
@@ -19,7 +18,9 @@ TextBox::TextBox(float width, float height)
 
 void TextBox::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::TextEntered) {
-        processInput(event.text.unicode);
+        if (isActive) {
+            processInput(event.text.unicode);
+        }
     }
     if (event.type == sf::Event::MouseButtonPressed) {
         if (box.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
@@ -43,24 +44,26 @@ void TextBox::render(sf::RenderWindow& window) {
 }
 
 void TextBox::processInput(sf::Uint32 unicode) {
-    if (unicode == '\b'){
+    if (unicode == '\b') {
         deleteCharacter();
-    }
-    if (unicode < 128 && content.length() < maxLength) {
-        content += static_cast<char>(unicode);
-        text.setString(content);
-        cursor.updatePosition(text.findCharacterPos(content.size()));
-        undoManager.saveState(content);
+    } else if (unicode < 128 && content.length() < maxLength) {
+        unsigned int cursorPos = cursor.getPosition();
+        if (cursorPos <= content.length()) {
+            content.insert(content.begin() + cursorPos, static_cast<char>(unicode));
+            text.setString(content);
+            cursor.moveRight();
+            cursor.updatePosition(text.findCharacterPos(cursor.getPosition()));
+            undoManager.saveState(content);
+        }
     }
 }
 
-// Fix this!!!
 void TextBox::deleteCharacter() {
-    if (!content.empty()) {
-        content.pop_back();
-        text.setString(content);
+    unsigned int cursorPos = cursor.getPosition();
+    if (!content.empty() && cursorPos > 0) {
+        content.erase(cursorPos - 1, 1);
         cursor.moveLeft();
-        std::cout << content << "\n";
+        text.setString(content);
         cursor.updatePosition(text.findCharacterPos(cursor.getPosition()));
         undoManager.saveState(content);
     }

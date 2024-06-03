@@ -25,6 +25,7 @@ void Cursor::render(sf::RenderWindow& window) {
 
 void Cursor::updatePosition(sf::Vector2f position) {
     cursor.setPosition(position.x + 2, position.y); // Adjust the position of the cursor
+    this->position = static_cast<unsigned int>(position.x / 12); // Assuming each character is 12 pixels wide
 }
 
 unsigned int Cursor::getPosition() const {
