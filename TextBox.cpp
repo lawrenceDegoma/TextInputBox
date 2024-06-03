@@ -1,5 +1,6 @@
 #include "TextBox.h"
 
+
 TextBox::TextBox(float width, float height)
         : box(sf::Vector2f(width, height)), maxLength(100), isActive(false), cursor(text.getCharacterSize()) {
     if (!font.loadFromFile("arial.ttf")) {
@@ -29,6 +30,11 @@ void TextBox::handleEvent(const sf::Event& event) {
             isActive = false;
         }
     }
+    if (event.type == sf::Event::KeyPressed) {
+        if ((event.key.control || event.key.system) && event.key.code == sf::Keyboard::Z) {
+            undo();
+        }
+    }
 }
 
 void TextBox::update(sf::Time deltaTime) {
@@ -49,11 +55,11 @@ void TextBox::processInput(sf::Uint32 unicode) {
     } else if (unicode < 128 && content.length() < maxLength) {
         unsigned int cursorPos = cursor.getPosition();
         if (cursorPos <= content.length()) {
+            undoManager.saveState(content);  // Save the current state before making a change
             content.insert(content.begin() + cursorPos, static_cast<char>(unicode));
             text.setString(content);
             cursor.moveRight();
-            cursor.updatePosition(text.findCharacterPos(cursor.getPosition()));
-            undoManager.saveState(content);
+            cursor.updatePosition(text);  // Pass text to updatePosition
         }
     }
 }
@@ -61,16 +67,20 @@ void TextBox::processInput(sf::Uint32 unicode) {
 void TextBox::deleteCharacter() {
     unsigned int cursorPos = cursor.getPosition();
     if (!content.empty() && cursorPos > 0) {
+        undoManager.saveState(content);  // Save the current state before making a change
         content.erase(cursorPos - 1, 1);
         cursor.moveLeft();
         text.setString(content);
-        cursor.updatePosition(text.findCharacterPos(cursor.getPosition()));
-        undoManager.saveState(content);
+        cursor.updatePosition(text);  // Pass text to updatePosition
     }
 }
 
 void TextBox::undo() {
-    content = undoManager.undo();
-    text.setString(content);
-    cursor.updatePosition(text.findCharacterPos(content.size()));
+    std::string previousState = undoManager.undo();
+    if (!previousState.empty()) {
+        content = previousState;
+        text.setString(content);
+        cursor.setPosition(content.size());  // Set cursor to end of content
+        cursor.updatePosition(text);  // Pass text to updatePosition
+    }
 }

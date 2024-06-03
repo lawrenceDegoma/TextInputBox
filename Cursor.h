@@ -14,10 +14,11 @@ public:
 
     void update(sf::Time deltaTime);
     void render(sf::RenderWindow& window);
-    void updatePosition(sf::Vector2f position);
+    void updatePosition(const sf::Text& text);
     unsigned int getPosition() const;
     void moveLeft();
     void moveRight();
+    void setPosition(unsigned int pos);
 
 private:
     sf::RectangleShape cursor;
@@ -25,6 +26,7 @@ private:
     bool visible;
     unsigned int position;
 };
+
 
 
 #endif //TEXTINPUTBOX_CURSOR_H

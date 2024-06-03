@@ -5,13 +5,14 @@
 #include "UndoManager.h"
 
 void UndoManager::saveState(const std::string& state) {
-    history.push_back(state);
+    states.push(state);
 }
 
 std::string UndoManager::undo() {
-    if (history.empty()) {
-        return "";
+    if (!states.empty()) {
+        std::string lastState = states.top();
+        states.pop();
+        return lastState;
     }
-    history.pop_back();
-    return history.empty() ? "" : history.back();
+    return "";
 }

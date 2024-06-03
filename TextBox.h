@@ -14,25 +14,23 @@
 class TextBox {
 public:
     TextBox(float width, float height);
-
     void handleEvent(const sf::Event& event);
     void update(sf::Time deltaTime);
     void render(sf::RenderWindow& window);
+    void undo();
 
 private:
     void processInput(sf::Uint32 unicode);
     void deleteCharacter();
-    void undo();
 
     sf::RectangleShape box;
     sf::Text text;
     sf::Font font;
     std::string content;
     Cursor cursor;
-    UndoManager undoManager;
-
-    unsigned int maxLength;
     bool isActive;
+    const unsigned int maxLength;
+    UndoManager undoManager;
 };
 
 #endif //TEXTINPUTBOX_TEXTBOX_H

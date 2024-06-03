@@ -6,15 +6,16 @@
 #define TEXTINPUTBOX_UNDOMANAGER_H
 
 
-#include <vector>
+#include <stack>
 #include <string>
 
 class UndoManager {
-private:
-    std::vector<std::string> history;
 public:
     void saveState(const std::string& state);
     std::string undo();
+
+private:
+    std::stack<std::string> states;
 };
 
 
