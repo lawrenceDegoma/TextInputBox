@@ -3,7 +3,7 @@
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML TextBox");
 
-    TextBox textBox(400, 50);
+    TextBox textBox(400, 50, 200, 250);
 
     sf::Clock clock;
     while (window.isOpen()) {

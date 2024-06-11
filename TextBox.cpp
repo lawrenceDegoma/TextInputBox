@@ -1,7 +1,7 @@
 #include "TextBox.h"
 
 
-TextBox::TextBox(float width, float height)
+TextBox::TextBox(float width, float height, float x, float y)
         : box(sf::Vector2f(width, height)), maxLength(100), isActive(false), cursor(text.getCharacterSize()) {
     if (!font.loadFromFile("arial.ttf")) {
         throw std::runtime_error("Failed to load font file 'arial.ttf'");
@@ -10,11 +10,12 @@ TextBox::TextBox(float width, float height)
     text.setFont(font);
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::Black);
-    text.setPosition(5.f, 5.f);
+    text.setPosition(x + 5.f, y + 5.f);  // Set the position of the text relative to the box
 
     box.setFillColor(sf::Color::White);
     box.setOutlineColor(sf::Color::Black);
     box.setOutlineThickness(2.f);
+    box.setPosition(x, y);  // Set the position of the box
 }
 
 void TextBox::handleEvent(const sf::Event& event) {

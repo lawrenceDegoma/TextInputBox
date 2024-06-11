@@ -811,5 +811,7 @@ CMakeFiles/TextInputBox.dir/main.cpp.o: \
   /opt/homebrew/include/SFML/Graphics/VertexBuffer.hpp \
   /Users/lawrence/CLionProjects/TextInputBox/Cursor.h \
   /Users/lawrence/CLionProjects/TextInputBox/UndoManager.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/stack \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/deque \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/iostream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk/usr/include/c++/v1/istream

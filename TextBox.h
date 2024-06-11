@@ -13,7 +13,7 @@
 
 class TextBox {
 public:
-    TextBox(float width, float height);
+    TextBox(float width, float height, float x, float y);
     void handleEvent(const sf::Event& event);
     void update(sf::Time deltaTime);
     void render(sf::RenderWindow& window);
